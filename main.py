@@ -31,8 +31,7 @@ def payment():
     dimes = int(input("How many dimes? ")) * .10
     nickels = int(input("How many nickels? ")) * .05
     pennies = int(input("How many pennies? ")) * .01
-    print(quarters + dimes + nickels + pennies)
-    return quarters + dimes + nickels + pennies
+    return round(quarters + dimes + nickels + pennies, 2)
 
 
 def sufficient_funds(item, pay):
@@ -55,13 +54,13 @@ total_coins = 0
 machine_power = True
 while machine_power:
     select = input("What would you like? (espresso/latte/cappuccino): ").lower()
-    if select == "report":
+    if select == "off":
+        machine_power = False
+    elif select == "report":
         report()
     elif select == "espresso" or select == "latte" or select == "cappuccino":
         if supplies(select):
             coins = payment()
             if sufficient_funds(select, coins):
-                total_coins += coins
-
-
+                total_coins += MENU[select]["cost"]
 
